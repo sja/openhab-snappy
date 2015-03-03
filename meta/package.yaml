@@ -1,0 +1,19 @@
+name: openhab
+version: 1.6.2
+vendor: Sebastian Janzen <sebastian.janzen@innoq.com>
+icon: meta/openhab.svg
+source: http://openhab.org
+architecture: amd64
+services:
+ - name: openhab
+   description: "openHAB Server"
+   start: bin/start.sh
+integration:
+  openhab:
+    apparmor-profile: meta/openhab.profile
+    bin-path: bin/start.sh
+  java:
+    apparmor-profile: meta/java.profile
+    bin-path: jdk/bin/java
+ports:
+ required: 8080,8443

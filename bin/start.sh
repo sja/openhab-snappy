@@ -12,10 +12,10 @@ openhab_home=/var/lib/apps/openhab/1.6.2
 config_location=${openhab_home}/configurations
 
 # Check if the configuration is in writable area, otherwise copy it there
-if [ ! -d "$openhab_home" ]; then
+if [ ! -d "$openhab_home/configurations" ]; then
 	mkdir -p ${openhab_home}/configurations
 	cp -r ${workdir}/configurations ${workdir}/etc $openhab_home
-	cp ${config_location}/configurations/openhab_default.cfg ${config_location}/openhab.cfg
+	cp ${config_location}/openhab_default.cfg ${config_location}/openhab.cfg
 fi
 
 # set path to eclipse folder. If local folder, use '.'; otherwise, use /path/to/eclipse/

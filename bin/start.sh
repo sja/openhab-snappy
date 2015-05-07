@@ -19,7 +19,7 @@ if [ ! -d "$openhab_home/configurations" ]; then
 fi
 
 # set path to eclipse folder. If local folder, use '.'; otherwise, use /path/to/eclipse/
-eclipsehome=${openhab_home}/server
+eclipsehome=$(workdir)/server
 
 # set ports for HTTP(S) server
 HTTP_PORT=8080
@@ -28,7 +28,7 @@ HTTPS_PORT=8443
 # get path to equinox jar inside $eclipsehome folder
 launcher=$(find $eclipsehome -name "org.eclipse.equinox.launcher_*.jar" | sort | tail -1);
 
-if [ "$launcher" -eq "" ]; then
+if [ -z "$launcher" ]; then
 	>&2 echo "Error: could not find equinox launcher."
 	exit 1
 fi

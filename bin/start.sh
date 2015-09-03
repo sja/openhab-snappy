@@ -12,14 +12,14 @@ openhab_home=/var/lib/apps/openhab/1.6.2
 config_location=${openhab_home}/configurations
 
 # Check if the configuration is in writable area, otherwise copy it there
-if [ ! -d "$openhab_home" ]; then
+if [ ! -d "$openhab_home/configurations" ]; then
 	mkdir -p ${openhab_home}/configurations
 	cp -r ${workdir}/configurations ${workdir}/etc $openhab_home
-	cp ${config_location}/configurations/openhab_default.cfg ${config_location}/openhab.cfg
+	cp ${config_location}/openhab_default.cfg ${config_location}/openhab.cfg
 fi
 
 # set path to eclipse folder. If local folder, use '.'; otherwise, use /path/to/eclipse/
-eclipsehome=${openhab_home}/server
+eclipsehome=$(workdir)/server
 
 # set ports for HTTP(S) server
 HTTP_PORT=8080
@@ -28,7 +28,7 @@ HTTPS_PORT=8443
 # get path to equinox jar inside $eclipsehome folder
 launcher=$(find $eclipsehome -name "org.eclipse.equinox.launcher_*.jar" | sort | tail -1);
 
-if [ "$launcher" -eq "" ]; then
+if [ -z "$launcher" ]; then
 	>&2 echo "Error: could not find equinox launcher."
 	exit 1
 fi
